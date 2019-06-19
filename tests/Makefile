@@ -9,7 +9,7 @@ CFLAGS += -I../src
 CXXFLAGS += -I../src -I../src-cpp
 LDFLAGS += -rdynamic -L../src -L../src-cpp
 
-KAFKA_VERSION?=2.0.0
+KAFKA_VERSION?=2.2.0
 
 -include ../Makefile.config
 
@@ -40,6 +40,10 @@ full: broker broker_idempotent sasl
 #
 # The following targets require an existing cluster running (test.conf)
 #
+quick:
+	@echo "Running quick(er) test suite (without sockem)"
+	./run-test.sh -p5 -Q -E ./$(BIN)
+
 run_par: $(BIN)
 	@echo "Running tests in parallel"
 	./run-test.sh -p5 ./$(BIN)
